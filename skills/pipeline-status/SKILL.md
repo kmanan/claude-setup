@@ -12,9 +12,9 @@ Check the health of all CyberPrism pipelines and report a summary. Do ALL of the
 
 3. For any services that show as failed, run `journalctl -u <service-name>.service --since "1 hour ago" --no-pager -n 30` to get error details.
 
-4. Check checkpoint files: `ls -la /home/manan/vuln-tracker/checkpoints/` and `cat` each one to see last run timestamps.
+4. Check checkpoint files: `ls -la checkpoints/` and `cat` each one to see last run timestamps.
 
-5. Check the service_status table: `PGPASSWORD=$DB_PASSWORD psql -h localhost -U postgres -d cisa_kev -c "SELECT service_name, status, last_run, last_error FROM service_status ORDER BY last_run DESC NULLS LAST"`
+5. If a `service_status` database table exists, query it for recent service run times and errors: `SELECT service_name, status, last_run, last_error FROM service_status ORDER BY last_run DESC NULLS LAST`
 
 Present a summary table showing:
 - Service name
