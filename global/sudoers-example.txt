@@ -1,0 +1,1 @@
+manan ALL=(ALL) NOPASSWD: /usr/bin/systemctl, /usr/bin/journalctl, /usr/bin/tail, /usr/bin/cat, /usr/bin/ls

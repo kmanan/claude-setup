@@ -1,0 +1,84 @@
+{
+  "enabledPlugins": {
+    "claude-mem@thedotmack": true
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git *)",
+      "Bash(ls *)",
+      "Bash(cd *)",
+      "Bash(pwd)",
+      "Bash(find *)",
+      "Bash(cat *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(grep *)",
+      "Bash(wc *)",
+      "Bash(diff *)",
+      "Bash(sort *)",
+      "Bash(uniq *)",
+      "Bash(xargs *)",
+      "Bash(mkdir *)",
+      "Bash(chmod *)",
+      "Bash(cp *)",
+      "Bash(mv *)",
+      "Bash(echo *)",
+      "Bash(date *)",
+      "Bash(which *)",
+      "Bash(file *)",
+      "Bash(tree *)",
+
+      "Bash(python3 *)",
+      "Bash(python *)",
+      "Bash(pip *)",
+      "Bash(pip3 *)",
+      "Bash(PYTHONPATH=* *)",
+      "Bash(venv/bin/*)",
+
+      "Bash(node *)",
+      "Bash(npm *)",
+      "Bash(npx *)",
+      "Bash(yarn *)",
+      "Bash(pnpm *)",
+
+      "Bash(psql *)",
+      "Bash(PGPASSWORD=* *)",
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Bash(gh *)",
+      "Bash(sqlite3 *)",
+      "Bash(jq *)",
+
+      "Bash(systemctl *)",
+      "Bash(journalctl *)",
+      "Bash(sudo systemctl *)",
+      "Bash(sudo journalctl *)",
+      "Bash(sudo tail *)",
+      "Bash(sudo cat *)",
+      "Bash(sudo ls *)",
+      "Bash(sudo nginx *)",
+      "Bash(sudo certbot *)",
+      "Bash(pm2 *)",
+
+      "Edit(*)",
+      "Write(*)",
+      "Read(*)",
+      "WebSearch",
+      "WebFetch(*)",
+
+      "mcp__plugin_claude-mem_mcp-search__search",
+      "mcp__plugin_claude-mem_mcp-search__save_memory",
+      "mcp__plugin_claude-mem_mcp-search__get_observations",
+      "mcp__plugin_claude-mem_mcp-search__timeline"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(git push --force *)",
+      "Bash(git reset --hard *)",
+      "Edit(*.env)",
+      "Edit(*/credentials/*)",
+      "Write(*.env)",
+      "Write(*/credentials/*)"
+    ]
+  }
+}
