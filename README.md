@@ -38,6 +38,8 @@ project/.claude/skills/*/SKILL.md    ← ⚡ Slash commands: /deploy, /push, /pi
 2. **Project deny rules** say "except notification_manager.py and .env files"
 3. **Hooks** enforce the hard rules — even if Claude tries, the hook blocks it
 4. **Skills** give you one-word commands for complex workflows
+5. **Commands** pre-load shell output into prompts so Claude has context before it thinks
+6. **Agents** are isolated specialists with restricted tool access — a security auditor that can only read, never write
 
 The result: **zero permission prompts** for routine work, **hard blocks** on dangerous operations.
 
@@ -58,6 +60,14 @@ rules/
   database.md            # Schema, migration safety, ORM gotchas (auto-loads for alembic/**)
   pipelines.md           # Pipeline flows, systemd schedules (auto-loads for scripts/**)
   api-routes.md          # Route map, pagination patterns (auto-loads for endpoints/**)
+
+agents/
+  security-auditor.md    # 🛡️ Read-only security audit (can't write files)
+  code-reviewer.md       # 🔍 Bug-focused code review with project-specific patterns
+
+commands/
+  review.md              # 📋 /project:review — pre-loads git diff, reviews for bugs + security
+  status.md              # 📊 /project:status — git status + server health + pipeline check
 
 skills/
   deploy/                # 🚀 /deploy — build + restart PM2 in one command
@@ -158,6 +168,67 @@ cp -r skills/deploy your-project/.claude/skills/
 ```
 
 Then just type `/deploy` in Claude Code. That's it.
+
+---
+
+## 🤖 Agents: Isolated Specialists
+
+Agents are different from skills. A skill runs in your main conversation. An agent **spawns in its own context window** with restricted tool access. It does its work, compresses the findings, and reports back — without cluttering your main session.
+
+### Security Auditor (read-only)
+
+```
+agents/security-auditor.md
+```
+
+- **Tools:** Read, Grep, Glob only — **cannot write or edit files**
+- **Model:** Sonnet (fast, focused)
+- **Auto-triggers:** When reviewing code for vulnerabilities, before deployments, or when you mention security
+- **Checks for:** SQL injection, None/null handling, input validation, race conditions, credential exposure, SSRF
+
+### Code Reviewer (read-only)
+
+```
+agents/code-reviewer.md
+```
+
+- **Tools:** Read, Grep, Glob only
+- **Model:** Sonnet
+- **Auto-triggers:** When reviewing PRs, checking implementations, or validating changes
+- **Checks for:** Real bugs (not style nits), known project-specific bug patterns, convention violations, protected file modifications
+
+The key insight: agents with restricted `tools` fields are **safer by design**. A security auditor that can't write files can't accidentally introduce the vulnerabilities it's looking for.
+
+---
+
+## 📋 Commands: Pre-loaded Context
+
+Commands are different from skills in one important way: they run **shell commands and inject the output** into the prompt *before* Claude starts thinking. The `!` backtick syntax embeds live data.
+
+### `/project:review` — Review Changes Before Committing
+
+```
+> /project:review
+```
+
+Pre-loads `git diff` (both staged and unstaged), then reviews for bugs, security issues, convention violations, and protected file modifications. Claude sees the full diff immediately — no back-and-forth.
+
+### `/project:status` — Project Health Dashboard
+
+```
+> /project:status
+```
+
+Pre-loads `git status`, server health (`systemctl status`), pipeline timers, and failed service checks into one prompt. Gives you a one-shot summary of everything.
+
+### Commands vs Skills
+
+| | Commands | Skills |
+|---|---------|--------|
+| **Invoke** | `/project:command-name` | `/skill-name` |
+| **Pre-loads data** | Yes — `!` backtick runs shell commands | No — skill decides what to read |
+| **Best for** | Workflows that need context upfront (diffs, logs, status) | Multi-step workflows (build, deploy, verify) |
+| **Location** | `.claude/commands/` | `.claude/skills/` |
 
 ---
 
