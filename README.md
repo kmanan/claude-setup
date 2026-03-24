@@ -8,6 +8,20 @@ My battle-tested Claude Code configuration for managing a portfolio of productio
 
 ---
 
+## 💬 The Prompt That Started This
+
+After weeks of building together — hitting bugs, breaking production, fixing it, learning what works — I asked Claude Code to introspect on our workflow:
+
+> *"Based on all the work we've done over the last several weeks and all the complaints I've had or problems we've run into, what are some key things you think I should consider adding to my CLAUDE.md or any other Claude Code hacks/tips to improve our building?"*
+
+Claude analyzed our entire history — the accidental database merge that wiped 90 entries, the Alembic migration that tried to drop 6 indexes, the hundreds of permission prompts per session, the repeated "reinventing the wheel" suggestions — and came back with actionable recommendations. Then I said **"ok, implement those"** and this repo is the result.
+
+Everything here was born from real production incidents, not theory. The hooks exist because CLAUDE.md warnings weren't enough. The permission structure exists because I was losing time approving `ls` commands. The skills exist because I was typing the same deploy steps over and over.
+
+**This is what happens when you let your AI developer introspect on its own failure modes and fix them.**
+
+---
+
 ## 🏗️ Architecture
 
 ```
