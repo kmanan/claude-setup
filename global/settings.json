@@ -3,6 +3,7 @@
     "claude-mem@thedotmack": true
   },
   "permissions": {
+    "defaultMode": "auto",
     "allow": [
       "Bash(git *)",
       "Bash(ls *)",
